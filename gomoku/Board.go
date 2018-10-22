@@ -3,10 +3,14 @@ package gomoku
 import "errors"
 
 const (
-	boardCellEmpty     uint8 = 0
-	boardCellOwn             = 1
-	boardCellFoe             = 2
-	boardCellForbidden       = 3
+	// BoardCellEmpty is a cell where no one has placed anything
+	BoardCellEmpty uint8 = 0
+	// BoardCellOwn : your cell
+	BoardCellOwn = 1
+	// BoardCellFoe : your oponent's cell
+	BoardCellFoe = 2
+	// BoardCellForbidden : a cell where no one can play
+	BoardCellForbidden = 3
 )
 
 // Board type represents a board of the gomoku game
@@ -27,7 +31,7 @@ func (brd *Board) init(size uint) error {
 	for i := uint(0); i < size; i++ {
 		brd.Cells[i] = make([]uint8, size)
 		for j := uint(0); j < size; j++ {
-			brd.Cells[i][j] = boardCellEmpty
+			brd.Cells[i][j] = BoardCellEmpty
 		}
 	}
 	brd.Size = size
