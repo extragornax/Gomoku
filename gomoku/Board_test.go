@@ -9,22 +9,22 @@ func TestBoardCreateOK(t *testing.T) {
 	if err != nil {
 		t.Error("error was supposed to be nil")
 	}
-	if len(board.cells) != 20 {
-		t.Errorf("len was suppoesed to be 20 and it was %d", len(board.cells))
+	if len(board.Cells) != 20 {
+		t.Errorf("len was suppoesed to be 20 and it was %d", len(board.Cells))
 	}
-	if board.size != 20 {
-		t.Errorf("size was suppoesed to be 20 and it was %d", board.size)
+	if board.Size != 20 {
+		t.Errorf("size was suppoesed to be 20 and it was %d", board.Size)
 	}
 
 	err = board.init(10)
 	if err != nil {
 		t.Error("error was supposed to be nil")
 	}
-	if len(board.cells) != 10 {
-		t.Errorf("len was suppoesed to be 10 and it was %d", len(board.cells))
+	if len(board.Cells) != 10 {
+		t.Errorf("len was suppoesed to be 10 and it was %d", len(board.Cells))
 	}
-	if board.size != 10 {
-		t.Errorf("size was suppoesed to be 10 and it was %d", board.size)
+	if board.Size != 10 {
+		t.Errorf("size was suppoesed to be 10 and it was %d", board.Size)
 	}
 }
 
