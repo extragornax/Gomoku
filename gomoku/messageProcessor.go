@@ -22,12 +22,15 @@ func messageProcessorStart(gmk *Gomoku, msg []string) {
 	if err != nil {
 		fmt.Println("ERROR " + err.Error())
 		gmk.Live = false
+	} else {
+		fmt.Println("OK")
 	}
 }
 
 func messageProcessorTurn(gmk *Gomoku, msg []string) {
-	x, _ := strconv.Atoi(msg[0])
-	y, _ := strconv.Atoi(msg[1])
+	splited := strings.Split(msg[0], ",")
+	x, _ := strconv.Atoi(splited[0])
+	y, _ := strconv.Atoi(splited[1])
 	gmk.Board.Cells[y][x] = BoardCellFoe
 	gmk.Turn = true
 }
@@ -39,13 +42,15 @@ func messageProcessorBegin(gmk *Gomoku, msg []string) {
 func messageProcessorBoard(gmk *Gomoku, msg []string) {
 	err := gmk.Board.init(gmk.Board.Size)
 	if err != nil {
+		fmt.Println("ERROR " + err.Error())
 		return
 	}
-	var line string
-	fmt.Scanln(&line)
-	for line != "DONE" {
+	gmk.scanner.Scan()
+	line := gmk.scanner.Text()
+	for line != "DONE" && line != "" {
 		messageProcessorBoardLine(gmk, line)
-		fmt.Scanln(&line)
+		gmk.scanner.Scan()
+		line = gmk.scanner.Text()
 	}
 }
 

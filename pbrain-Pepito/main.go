@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"gomoku/gomoku"
 )
 
@@ -14,7 +13,6 @@ func main() {
 	// if err := scanner.Err(); err != nil {
 	// 	os.Exit(1)
 	// }
-	fmt.Printf("hello, world\n")
 	var game gomoku.Gomoku
 	game.Init()
 	game.Run()
