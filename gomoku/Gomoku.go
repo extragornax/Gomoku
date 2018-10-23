@@ -25,6 +25,7 @@ func (gmk *Gomoku) Init() {
 
 // Run is the main exectuion loop
 func (gmk *Gomoku) Run() {
+	gmk.Turn = false
 	for gmk.Live && !gmk.Turn {
 		fmt.Println("DEBUG expecting input from Piskvork")
 		if gmk.scanner.Scan() == false {
