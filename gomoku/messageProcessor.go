@@ -18,7 +18,7 @@ var messageProcessorsMap = map[string]messageProcessor{
 
 func messageProcessorStart(gmk *Gomoku, msg []string) {
 	nb, _ := strconv.Atoi(msg[0])
-	err := gmk.Board.init(uint(nb))
+	err := gmk.Board.Init(uint(nb))
 	if err != nil {
 		fmt.Println("ERROR " + err.Error())
 		gmk.Live = false
@@ -41,7 +41,7 @@ func messageProcessorBegin(gmk *Gomoku, msg []string) {
 }
 
 func messageProcessorBoard(gmk *Gomoku, msg []string) {
-	err := gmk.Board.init(gmk.Board.Size)
+	err := gmk.Board.Init(gmk.Board.Size)
 	if err != nil {
 		fmt.Println("ERROR " + err.Error())
 		return

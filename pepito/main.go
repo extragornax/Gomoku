@@ -14,6 +14,7 @@ func main() {
 	// 	os.Exit(1)
 	// }
 	var game gomoku.Gomoku
+
 	game.Init()
 	game.Run()
 	game.Play(2, 2)

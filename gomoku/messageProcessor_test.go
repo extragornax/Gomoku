@@ -10,7 +10,7 @@ func TestMessageProcessorBoard(t *testing.T) {
 
 	gmk.Init()
 
-	err := gmk.Board.init(5)
+	err := gmk.Board.Init(5)
 	if err != nil {
 		t.Error("failed to init board")
 	}
@@ -36,7 +36,7 @@ func TestMessageProcessorTurn(t *testing.T) {
 
 	gmk.Init()
 
-	err := gmk.Board.init(5)
+	err := gmk.Board.Init(5)
 	if err != nil {
 		t.Error("failed to init board")
 	}
@@ -62,7 +62,7 @@ func TestMessageProcessorBegin(t *testing.T) {
 
 	gmk.Init()
 
-	err := gmk.Board.init(5)
+	err := gmk.Board.Init(5)
 	if err != nil {
 		t.Error("failed to init board")
 	}
