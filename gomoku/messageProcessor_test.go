@@ -40,6 +40,7 @@ func TestMessageProcessorTurn(t *testing.T) {
 	if err != nil {
 		t.Error("failed to init board")
 	}
+
 	words := strings.Fields("TURN 3,2")
 	messageProcessorTurn(&gmk, words[1:])
 	if gmk.Board.Cells[2][3] != BoardCellFoe {
@@ -50,6 +51,9 @@ func TestMessageProcessorTurn(t *testing.T) {
 	}
 	if gmk.Live != true {
 		t.Error("gomoku should be up")
+	}
+	if gmk.Begin != false {
+		t.Error("begin should be false")
 	}
 }
 
