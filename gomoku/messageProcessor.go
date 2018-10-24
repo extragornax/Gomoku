@@ -36,6 +36,7 @@ func messageProcessorTurn(gmk *Gomoku, msg []string) {
 }
 
 func messageProcessorBegin(gmk *Gomoku, msg []string) {
+	gmk.Begin = true
 	gmk.Turn = true
 }
 

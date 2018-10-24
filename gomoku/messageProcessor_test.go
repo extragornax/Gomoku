@@ -52,3 +52,25 @@ func TestMessageProcessorTurn(t *testing.T) {
 		t.Error("gomoku should be up")
 	}
 }
+
+func TestMessageProcessorBegin(t *testing.T) {
+	var gmk Gomoku
+
+	gmk.Init()
+
+	err := gmk.Board.init(5)
+	if err != nil {
+		t.Error("failed to init board")
+	}
+	words := strings.Fields("BEGIN 3,2")
+	messageProcessorBegin(&gmk, words[1:])
+	if gmk.Turn != true {
+		t.Error("turn should be true")
+	}
+	if gmk.Live != true {
+		t.Error("gomoku should be up")
+	}
+	if gmk.Begin != true {
+		t.Error("begin should be true")
+	}
+}

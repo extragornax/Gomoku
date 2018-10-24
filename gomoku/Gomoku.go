@@ -13,6 +13,7 @@ type Gomoku struct {
 	Board   Board
 	Live    bool
 	Turn    bool
+	Begin   bool
 	scanner *bufio.Scanner
 }
 
@@ -20,6 +21,7 @@ type Gomoku struct {
 func (gmk *Gomoku) Init() {
 	gmk.Live = true
 	gmk.Turn = false
+	gmk.Begin = false
 	gmk.scanner = bufio.NewScanner(os.Stdin)
 }
 
