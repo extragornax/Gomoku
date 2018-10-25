@@ -14,6 +14,7 @@ jobs:
           command: go test gomoku/gomoku
       - run:
           name: Build Pepito
+          working_directory: "../../bin"
           command: go build gomoku/pepito
       - store_artifacts:
           path: /tmp/test-results
