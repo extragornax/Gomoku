@@ -94,3 +94,51 @@ func TestSearch_ver(t *testing.T) {
 		t.Error("error coord hor")
 	}
 }
+
+func TestSearch_hor_single(t *testing.T) {
+	var board Board
+	var coord Coord
+	err := board.init(10)
+	if err != nil {
+		t.Error("error was supposed to be nil")
+	}
+	board.Cells[0][5] = BoardCellOwn
+	board.Cells[1][1] = BoardCellOwn
+	board.Cells[1][4] = BoardCellFoe
+	board.Cells[2][2] = BoardCellFoe
+	board.Cells[3][1] = BoardCellFoe
+	board.Cells[3][3] = BoardCellOwn
+
+	coord = board.searchHor(BoardCellOwn)
+	if coord.NbPiece != 1 || coord.CoordX != 5 || coord.CoordY != 0 {
+		t.Error("error coord hor")
+	}
+	coord = board.searchHor(BoardCellFoe)
+	if coord.NbPiece != 1 || coord.CoordX != 4 || coord.CoordY != 1 {
+		t.Error("error coord hor")
+	}
+}
+
+func TestSearch_ver_single(t *testing.T) {
+	var board Board
+	var coord Coord
+	err := board.init(10)
+	if err != nil {
+		t.Error("error was supposed to be nil")
+	}
+	board.Cells[0][5] = BoardCellOwn
+	board.Cells[1][1] = BoardCellOwn
+	board.Cells[1][4] = BoardCellFoe
+	board.Cells[2][2] = BoardCellFoe
+	board.Cells[3][1] = BoardCellFoe
+	board.Cells[3][3] = BoardCellOwn
+
+	coord = board.searchVer(BoardCellOwn)
+	if coord.NbPiece != 1 || coord.CoordX != 1 || coord.CoordY != 1 {
+		t.Error("error coord hor")
+	}
+	coord = board.searchVer(BoardCellFoe)
+	if coord.NbPiece != 1 || coord.CoordX != 1 || coord.CoordY != 3 {
+		t.Error("error coord hor")
+	}
+}
