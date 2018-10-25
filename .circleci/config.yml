@@ -1,10 +1,11 @@
 version: 2
 jobs:
   full_test:
+    docker:
+      - image: golang
     working_directory: /go/src/gomoku
     environment:
       TEST_RESULTS: /tmp/test-results
-      - image: golang
     steps:
       - checkout
       - run: mkdir -p $TEST_RESULTS # create the test results directory
