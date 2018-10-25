@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  full_test:
+    working_directory: /go/src/gomoku
+    environment:
+      TEST_RESULTS: /tmp/test-results
+      - image: golang
+    steps:
+      - checkout
+      - run: mkdir -p $TEST_RESULTS # create the test results directory
+      - run:
+          name: Run unit tests
+          command: |
+            trap "go-junit-report <${TEST_RESULTS}/go-test.out > ${TEST_RESULTS}/go-test-report.xml" EXIT
+            make test | tee ${TEST_RESULTS}/go-test.out
+      - run:
+          name: Build Project
+          command: go
+      - store_artifacts: # Upload test summary for display in Artifacts
+          path: /tmp/test-results
+          destination: raw-test-output
+
+      - store_test_results: # Upload test results for display in Test Summary
+          path: /tmp/test-results
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - full_test
