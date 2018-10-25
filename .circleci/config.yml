@@ -11,11 +11,11 @@ jobs:
       - run: mkdir -p $TEST_RESULTS # create the test results directory
       - run:
           name: Run unit tests
-          command: go test gomoku/gomoku
+          command: go test -v gomoku/gomoku
       - run:
           name: Build Pepito
           working_directory: "../../bin"
-          command: go build gomoku/pepito
+          command: go build -v gomoku/pepito
       - store_artifacts:
           path: /tmp/test-results
           destination: raw-test-output
