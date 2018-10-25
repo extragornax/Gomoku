@@ -9,9 +9,10 @@ jobs:
     steps:
       - checkout
       - run: mkdir -p $TEST_RESULTS # create the test results directory
+      - run: go get -u github.com/jstemmer/go-junit-report
       - run:
           name: Run unit tests
-          command: go test -v gomoku/gomoku
+          command: test.sh
       - run:
           name: Build Pepito
           working_directory: "../../bin"
