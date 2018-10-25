@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"gomoku/gomoku"
 )
 
@@ -14,6 +15,10 @@ func main() {
 	// 	os.Exit(1)
 	// }
 	var game gomoku.Gomoku
+
+	test := gomoku.BoardCellFoe
+	fmt.Println(test)
+
 	game.Init()
 	game.Run()
 	game.Play(2, 2)
