@@ -12,7 +12,7 @@ jobs:
       - run: go get -u github.com/jstemmer/go-junit-report
       - run:
           name: Run unit tests
-          command: ./test.sh
+          command: bash ./test.sh
       - run:
           name: Build Pepito
           working_directory: "../../bin"
