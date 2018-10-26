@@ -9,11 +9,13 @@ import (
 type messageProcessor func(*Gomoku, []string)
 
 var messageProcessorsMap = map[string]messageProcessor{
-	"START": messageProcessorStart,
-	"TURN":  messageProcessorTurn,
-	"BEGIN": messageProcessorBegin,
-	"BOARD": messageProcessorBoard,
-	"ABOUT": messageProcessorAbout,
+	"START":   messageProcessorStart,
+	"TURN":    messageProcessorTurn,
+	"BEGIN":   messageProcessorBegin,
+	"BOARD":   messageProcessorBoard,
+	"ABOUT":   messageProcessorAbout,
+	"END":     messageProcessorEnd,
+	"RESTART": messageProcessorRestart,
 }
 
 func messageProcessorStart(gmk *Gomoku, msg []string) {
@@ -53,6 +55,7 @@ func messageProcessorBoard(gmk *Gomoku, msg []string) {
 		gmk.scanner.Scan()
 		line = gmk.scanner.Text()
 	}
+	gmk.Turn = true
 }
 
 func messageProcessorBoardLine(gmk *Gomoku, line string) {
@@ -67,4 +70,14 @@ func messageProcessorBoardLine(gmk *Gomoku, line string) {
 
 func messageProcessorAbout(gmk *Gomoku, msg []string) {
 	fmt.Println("name=\"pepito\", version=\"1.0\", author=\"pepito\", country=\"China\"")
+}
+
+func messageProcessorEnd(gmk *Gomoku, msg []string) {
+	// gmk.Live = false
+}
+
+func messageProcessorRestart(gmk *Gomoku, msg []string) {
+	gmk.Live = true
+	gmk.Turn = false
+	gmk.Begin = false
 }
