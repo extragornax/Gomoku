@@ -1,11 +1,13 @@
 package gomoku
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestBoardCreateOK(t *testing.T) {
 	var board Board
 
-	err := board.init(20)
+	err := board.Init(20)
 	if err != nil {
 		t.Error("error was supposed to be nil")
 	}
@@ -16,7 +18,7 @@ func TestBoardCreateOK(t *testing.T) {
 		t.Errorf("size was suppoesed to be 20 and it was %d", board.Size)
 	}
 
-	err = board.init(10)
+	err = board.Init(10)
 	if err != nil {
 		t.Error("error was supposed to be nil")
 	}
@@ -30,12 +32,12 @@ func TestBoardCreateOK(t *testing.T) {
 
 func TestBoardCreateKO(t *testing.T) {
 	var board Board
-	err := board.init(30)
+	err := board.Init(30)
 	if err == nil || err.Error() != ErrBoardTooLarge {
 		t.Error("Expected err board too large")
 	}
 
-	err = board.init(0)
+	err = board.Init(0)
 	if err == nil || err.Error() != ErrBoardTooSmall {
 		t.Error("Expected err board too small")
 	}

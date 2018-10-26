@@ -9,16 +9,18 @@ import (
 type messageProcessor func(*Gomoku, []string)
 
 var messageProcessorsMap = map[string]messageProcessor{
-	"START": messageProcessorStart,
-	"TURN":  messageProcessorTurn,
-	"BEGIN": messageProcessorBegin,
-	"BOARD": messageProcessorBoard,
-	"ABOUT": messageProcessorAbout,
+	"START":   messageProcessorStart,
+	"TURN":    messageProcessorTurn,
+	"BEGIN":   messageProcessorBegin,
+	"BOARD":   messageProcessorBoard,
+	"ABOUT":   messageProcessorAbout,
+	"END":     messageProcessorEnd,
+	"RESTART": messageProcessorRestart,
 }
 
 func messageProcessorStart(gmk *Gomoku, msg []string) {
 	nb, _ := strconv.Atoi(msg[0])
-	err := gmk.Board.init(uint(nb))
+	err := gmk.Board.Init(uint(nb))
 	if err != nil {
 		fmt.Println("ERROR " + err.Error())
 		gmk.Live = false
@@ -41,7 +43,7 @@ func messageProcessorBegin(gmk *Gomoku, msg []string) {
 }
 
 func messageProcessorBoard(gmk *Gomoku, msg []string) {
-	err := gmk.Board.init(gmk.Board.Size)
+	err := gmk.Board.Init(gmk.Board.Size)
 	if err != nil {
 		fmt.Println("ERROR " + err.Error())
 		return
@@ -53,6 +55,7 @@ func messageProcessorBoard(gmk *Gomoku, msg []string) {
 		gmk.scanner.Scan()
 		line = gmk.scanner.Text()
 	}
+	gmk.Turn = true
 }
 
 func messageProcessorBoardLine(gmk *Gomoku, line string) {
@@ -67,4 +70,14 @@ func messageProcessorBoardLine(gmk *Gomoku, line string) {
 
 func messageProcessorAbout(gmk *Gomoku, msg []string) {
 	fmt.Println("name=\"pepito\", version=\"1.0\", author=\"pepito\", country=\"China\"")
+}
+
+func messageProcessorEnd(gmk *Gomoku, msg []string) {
+	// gmk.Live = false
+}
+
+func messageProcessorRestart(gmk *Gomoku, msg []string) {
+	gmk.Live = true
+	gmk.Turn = false
+	gmk.Begin = false
 }
