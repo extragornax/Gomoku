@@ -7,8 +7,8 @@ import (
 const (
 	searchResultHorizontal = iota
 	searchResultVectical   = iota
-	searchDiag1Result      = iota
-	searchDiag2Result      = iota
+	searchDiagUpResult     = iota
+	searchDiagDownResult   = iota
 )
 
 // searchResult
@@ -94,16 +94,16 @@ func searchVertical(brd gomoku.Board, player uint8) searchResult {
 	return res
 }
 
-func seachDiagonal1(brd gomoku.Board, target uint8) searchResult {
+func seachDiagonalUp(brd gomoku.Board, target uint8) searchResult {
 	var res searchResult
-	res.resultType = searchDiag1Result
+	res.resultType = searchDiagUpResult
 
 	return res
 }
 
-func seachDiagonal2(brd gomoku.Board, target uint8) searchResult {
+func seachDiagonalDown(brd gomoku.Board, target uint8) searchResult {
 	var res searchResult
-	res.resultType = searchDiag2Result
+	res.resultType = searchDiagDownResult
 
 	return res
 }
