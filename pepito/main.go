@@ -14,7 +14,8 @@ func main() {
 	game.Init()
 	game.Run()
 	for game.Live {
+		trial := decisionTake(&game)
+		game.Play(trial.x, trial.y)
 		game.Run()
 	}
-	game.Play(2, 2)
 }

@@ -35,7 +35,7 @@ func decisionTake(game *gomoku.Gomoku) uvector {
 		resown = tmp
 	}
 
-	if resfoe.size != 0 && resfoe.size >= resown.size {
+	if resfoe.size >= 2 && resfoe.size >= resown.size {
 		return decisionCompleteOrBock(resfoe)
 	}
 	if resown.size != 0 {
