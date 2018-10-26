@@ -5,8 +5,8 @@ import (
 )
 
 const (
-	searchHorizontalResult = iota
-	searchVecticalResult   = iota
+	searchResultHorizontal = iota
+	searchResultVectical   = iota
 	searchDiag1Result      = iota
 	searchDiag2Result      = iota
 )
@@ -37,7 +37,7 @@ func searchBlockedVertical(brd gomoku.Board, x uint, y uint, size uint) (before 
 
 func searchHorizontal(brd gomoku.Board, target uint8) searchResult {
 	var res searchResult
-	res.resultType = searchHorizontalResult
+	res.resultType = searchResultHorizontal
 	res.size = 0
 	res.x = 0
 	res.y = 0
@@ -66,7 +66,7 @@ func searchHorizontal(brd gomoku.Board, target uint8) searchResult {
 
 func searchVertical(brd gomoku.Board, player uint8) searchResult {
 	var res searchResult
-	res.resultType = searchVecticalResult
+	res.resultType = searchResultVectical
 	res.size = 0
 	res.x = 0
 	res.y = 0
@@ -91,5 +91,19 @@ func searchVertical(brd gomoku.Board, player uint8) searchResult {
 			size = 0
 		}
 	}
+	return res
+}
+
+func seachDiagonal1(brd gomoku.Board, target uint8) searchResult {
+	var res searchResult
+	res.resultType = searchDiag1Result
+
+	return res
+}
+
+func seachDiagonal2(brd gomoku.Board, target uint8) searchResult {
+	var res searchResult
+	res.resultType = searchDiag2Result
+
 	return res
 }

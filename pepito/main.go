@@ -4,10 +4,9 @@ import (
 	"gomoku/gomoku"
 )
 
-func completeHorizontal(res searchResult) {
-	if res.resultType == searchHorizontalResult {
-
-	}
+type uvector struct {
+	x uint
+	y uint
 }
 
 func main() {
@@ -15,12 +14,6 @@ func main() {
 	game.Init()
 	game.Run()
 	for game.Live {
-		result := searchHorizontal(game.Board, gomoku.BoardCellFoe)
-		tmp := searchVertical(game.Board, gomoku.BoardCellFoe)
-		if tmp.size > result.size {
-			result = tmp
-		}
-
 		game.Run()
 	}
 	game.Play(2, 2)
