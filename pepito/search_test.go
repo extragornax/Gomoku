@@ -12,27 +12,34 @@ func TestSearchHorizontal(t *testing.T) {
 	if err != nil {
 		t.Error("error was supposed to be nil")
 	}
-	board.Cells[1][1] = gomoku.BoardCellFoe
-	board.Cells[1][0] = gomoku.BoardCellFoe
+	// board.Cells[1][1] = gomoku.BoardCellFoe
+	board.Cells[1][5] = gomoku.BoardCellFoe
 
 	board.Cells[4][2] = gomoku.BoardCellFoe
 	board.Cells[4][1] = gomoku.BoardCellFoe
 	board.Cells[4][3] = gomoku.BoardCellOwn
 
 	board.Cells[1][2] = gomoku.BoardCellOwn
-	board.Cells[1][4] = gomoku.BoardCellOwn
 	board.Cells[1][3] = gomoku.BoardCellOwn
+	board.Cells[1][4] = gomoku.BoardCellOwn
+
 	board.Cells[2][1] = gomoku.BoardCellOwn
 	board.Cells[2][2] = gomoku.BoardCellOwn
 	board.Cells[3][1] = gomoku.BoardCellOwn
 
 	coord = searchHorizontal(board, gomoku.BoardCellOwn)
 	if coord.size != 3 || coord.x != 2 || coord.y != 1 {
-		t.Error("error coord hor")
+		t.Error("own combinasion could not be found")
+	}
+	if coord.blockedAfter != true || coord.blockedBefore != false {
+		t.Error("blockade is incorrect")
 	}
 	coord = searchHorizontal(board, gomoku.BoardCellFoe)
 	if coord.size != 2 || coord.x != 1 || coord.y != 4 {
-		t.Error("error coord hor")
+		t.Error("foe's combinasion could not be found")
+	}
+	if coord.blockedAfter != true && coord.blockedBefore != false {
+		t.Error("blockade is incorrect")
 	}
 }
 

@@ -49,11 +49,15 @@ func searchHorizontal(brd gomoku.Board, target uint8) searchResult {
 				size++
 				x++
 			}
-			before, after := searchBlockedHorizontal(brd, x-size, y, size)
-			if size > res.size && !(before && after) {
-				res.size = size
-				res.y = y
-				res.x = x - size
+			if size > res.size {
+				before, after := searchBlockedHorizontal(brd, x-size, y, size)
+				if !(before && after) {
+					res.size = size
+					res.y = y
+					res.x = x - size
+					res.blockedBefore = before
+					res.blockedAfter = after
+				}
 			}
 		}
 	}
@@ -74,11 +78,15 @@ func searchVertical(brd gomoku.Board, player uint8) searchResult {
 				size++
 				y++
 			}
-			before, after := searchBlockedVertical(brd, x, y-size, size)
-			if size > res.size && !(before && after) {
-				res.size = size
-				res.y = y - size
-				res.x = x
+			if size > res.size {
+				before, after := searchBlockedVertical(brd, x, y-size, size)
+				if !(before && after) {
+					res.size = size
+					res.y = y - size
+					res.x = x
+					res.blockedBefore = before
+					res.blockedAfter = after
+				}
 			}
 			size = 0
 		}
