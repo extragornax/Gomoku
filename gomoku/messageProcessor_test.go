@@ -15,17 +15,17 @@ func TestMessageProcessorBoard(t *testing.T) {
 		t.Error("failed to Init board")
 	}
 
-	messageProcessorBoardLine(&gmk, "1 1 2")
+	messageProcessorBoardLine(&gmk, "1,1,2")
 	if gmk.Board.Cells[1][1] != 2 {
 		t.Error("board cell value is incorrect")
 	}
 
-	messageProcessorBoardLine(&gmk, "1 2 1")
+	messageProcessorBoardLine(&gmk, "1,2,1")
 	if gmk.Board.Cells[2][1] != 1 {
 		t.Error("board cell value is incorrect")
 	}
 
-	messageProcessorBoardLine(&gmk, "4 0 2")
+	messageProcessorBoardLine(&gmk, "4,0,2")
 	if gmk.Board.Cells[0][4] != 2 {
 		t.Error("board cell value is incorrect")
 	}
@@ -66,7 +66,7 @@ func TestMessageProcessorBegin(t *testing.T) {
 	if err != nil {
 		t.Error("failed to Init board")
 	}
-	words := strings.Fields("BEGIN 3,2")
+	words := strings.Fields("BEGIN")
 	messageProcessorBegin(&gmk, words[1:])
 	if gmk.Turn != true {
 		t.Error("turn should be true")

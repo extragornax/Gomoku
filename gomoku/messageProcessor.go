@@ -56,7 +56,7 @@ func messageProcessorBoard(gmk *Gomoku, msg []string) {
 }
 
 func messageProcessorBoardLine(gmk *Gomoku, line string) {
-	words := strings.Fields(line)
+	words := strings.Split(line, ",")
 	if len(words) == 3 {
 		x, _ := strconv.Atoi(words[0])
 		y, _ := strconv.Atoi(words[1])
