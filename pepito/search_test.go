@@ -68,9 +68,15 @@ func TestSearchVertical(t *testing.T) {
 	if coord.size != 3 || coord.x != 2 || coord.y != 1 {
 		t.Error("error coord hor")
 	}
+	if coord.blockedAfter != false && coord.blockedBefore != true {
+		t.Error("blockade is incorrect")
+	}
 	coord = searchVertical(board, gomoku.BoardCellFoe)
 	if coord.size != 2 || coord.x != 3 || coord.y != 2 {
 		t.Error("error coord hor")
+	}
+	if coord.blockedAfter != false && coord.blockedBefore != false {
+		t.Error("blockade is incorrect")
 	}
 }
 
