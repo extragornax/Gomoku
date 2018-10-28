@@ -10,9 +10,9 @@ func TestMessageProcessorBoard(t *testing.T) {
 
 	gmk.Init()
 
-	err := gmk.Board.init(5)
+	err := gmk.Board.Init(5)
 	if err != nil {
-		t.Error("failed to init board")
+		t.Error("failed to Init board")
 	}
 
 	messageProcessorBoardLine(&gmk, "1,1,2")
@@ -36,9 +36,9 @@ func TestMessageProcessorTurn(t *testing.T) {
 
 	gmk.Init()
 
-	err := gmk.Board.init(5)
+	err := gmk.Board.Init(5)
 	if err != nil {
-		t.Error("failed to init board")
+		t.Error("failed to Init board")
 	}
 
 	words := strings.Fields("TURN 3,2")
@@ -62,9 +62,9 @@ func TestMessageProcessorBegin(t *testing.T) {
 
 	gmk.Init()
 
-	err := gmk.Board.init(5)
+	err := gmk.Board.Init(5)
 	if err != nil {
-		t.Error("failed to init board")
+		t.Error("failed to Init board")
 	}
 	words := strings.Fields("BEGIN")
 	messageProcessorBegin(&gmk, words[1:])

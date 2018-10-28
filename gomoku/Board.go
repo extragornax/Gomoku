@@ -20,7 +20,7 @@ type Board struct {
 }
 
 // Init initialises the board
-func (brd *Board) init(size uint) error {
+func (brd *Board) Init(size uint) error {
 	if size > 20 {
 		return errors.New(ErrBoardTooLarge)
 	} else if size == 0 {
