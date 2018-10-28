@@ -1,6 +1,9 @@
 package main
 
-import "gomoku/gomoku"
+import (
+	"fmt"
+	"gomoku/gomoku"
+)
 
 func decisionCompleteOrBock(res searchResult) (trial uvector) {
 	if res.resultType == searchResultHorizontal {
@@ -19,6 +22,22 @@ func decisionCompleteOrBock(res searchResult) (trial uvector) {
 			trial.x = res.x
 			trial.y = res.y + res.size
 		}
+	} else if res.resultType == searchDiagDownResult {
+		if !res.blockedBefore {
+			trial.x = res.x - 1
+			trial.y = res.y - 1
+		} else {
+			trial.x = res.x + res.size
+			trial.y = res.y + res.size
+		}
+	} else if res.resultType == searchDiagUpResult {
+		if !res.blockedBefore {
+			trial.x = res.x - 1
+			trial.y = res.y - 1
+		} else {
+			trial.x = res.x + res.size
+			trial.y = res.y + res.size
+		}
 	}
 	return
 }
@@ -26,6 +45,16 @@ func decisionCompleteOrBock(res searchResult) (trial uvector) {
 func decisionTake(game *gomoku.Gomoku) uvector {
 	resfoe := searchHorizontal(game.Board, gomoku.BoardCellFoe)
 	tmp := searchVertical(game.Board, gomoku.BoardCellFoe)
+	if tmp.size > resfoe.size {
+		resfoe = tmp
+	}
+	tmp = seachDiagonalUp(game.Board, gomoku.BoardCellFoe)
+	fmt.Printf("DEBUG diagup %d\n", tmp.size)
+	if tmp.size > resfoe.size {
+		resfoe = tmp
+	}
+	tmp = seachDiagonalDown(game.Board, gomoku.BoardCellFoe)
+	fmt.Printf("DEBUG diagdown %d\n", tmp.size)
 	if tmp.size > resfoe.size {
 		resfoe = tmp
 	}
