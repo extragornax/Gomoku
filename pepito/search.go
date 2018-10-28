@@ -131,3 +131,41 @@ func searchDiagonalDown(brd gomoku.Board, player uint8) searchResult {
 	}
 	return res
 }
+
+func searchBlockedDiagonalUp(brd gomoku.Board, x uint, y uint, size uint) (before bool, after bool) {
+	before = y+1 >= brd.Size || x == 0 || brd.Cells[y+1][x-1] != 0
+	after = y == 0 || x+size >= brd.Size || brd.Cells[y-size][x+size] != 0
+	return
+}
+
+func searchDiagonalUp(brd gomoku.Board, player uint8) searchResult {
+	var res searchResult
+	res.resultType = searchDiagUpResult
+	res.size = 0
+	res.x = 0
+	res.y = 0
+	size := uint(0)
+
+	for x := uint(0); x < brd.Size; x++ {
+		for y := uint(0); y < brd.Size; y++ {
+			tmp := y
+			for x < brd.Size && tmp != 0 && brd.Cells[tmp][x] == player {
+				size++
+				x++
+				tmp--
+			}
+			if size > res.size {
+				before, after := searchBlockedDiagonalUp(brd, x-size, tmp+size, size)
+				if !(before && after) {
+					res.size = size
+					res.y = tmp + size
+					res.x = x - size
+					res.blockedBefore = before
+					res.blockedAfter = after
+				}
+			}
+			size = 0
+		}
+	}
+	return res
+}

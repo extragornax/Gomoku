@@ -50,18 +50,24 @@ func decisionTake(game *gomoku.Gomoku) uvector {
 	if tmp.size > resfoe.size {
 		resfoe = tmp
 	}
-	tmp = searchDigonalUp(game.Board, gomoku.BoardCellFoe)
-	fmt.Printf("DEBUG diagup %d\n", tmp.size)
+	tmp = searchDiagonalUp(game.Board, gomoku.BoardCellFoe)
 	if tmp.size > resfoe.size {
 		resfoe = tmp
 	}
 	tmp = searchDiagonalDown(game.Board, gomoku.BoardCellFoe)
-	fmt.Printf("DEBUG diagdown %d\n", tmp.size)
 	if tmp.size > resfoe.size {
 		resfoe = tmp
 	}
 	resown := searchHorizontal(game.Board, gomoku.BoardCellOwn)
 	tmp = searchVertical(game.Board, gomoku.BoardCellOwn)
+	if tmp.size > resown.size {
+		resown = tmp
+	}
+	tmp = searchDiagonalUp(game.Board, gomoku.BoardCellFoe)
+	if tmp.size > resown.size {
+		resown = tmp
+	}
+	tmp = searchDiagonalDown(game.Board, gomoku.BoardCellFoe)
 	if tmp.size > resown.size {
 		resown = tmp
 	}
