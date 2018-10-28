@@ -81,7 +81,6 @@ func main() {
 		j += 1
 		i -= 1
 		game.Play(i, j)
-		// find_diag_up(game, gomoku.BoardCellFoe)
 		fmt.Printf("==========================\n")
 		for i := uint(0); i < game.Board.Size; i++ {
 			for h := uint(0); h < game.Board.Size; h++ {
@@ -91,6 +90,7 @@ func main() {
 		}
 		fmt.Printf("==========================\n")
 		searchDigonalDown(game.Board, gomoku.BoardCellFoe)
+		searchDigonalUp(game.Board, gomoku.BoardCellFoe)
 		game.Run()
 	}
 }

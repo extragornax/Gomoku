@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"gomoku/gomoku"
 )
 
@@ -60,7 +59,6 @@ func searchDigonalDown(game gomoku.Board, who uint8) searchResult {
 			}
 		}
 	}
-	fmt.Printf("DIAGONAL DOWN: %d %d %d before:%t after:%t\n", infos.x, infos.y, infos.size, infos.blockedBefore, infos.blockedAfter)
 	return infos
 }
 
@@ -133,6 +131,5 @@ func searchDigonalUp(game gomoku.Board, who uint8) searchResult {
 			}
 		}
 	}
-	fmt.Printf("DIAGONAL Up: %d %d %d before:%t after:%t\n", infos.x, infos.y, infos.size, infos.blockedBefore, infos.blockedAfter)
 	return infos
 }
