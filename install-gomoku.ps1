@@ -1,16 +1,16 @@
-if (-not (Test-Path Env:\GOROOT)) {
-	Write-Error @"
+$directory = Get-Location
 
-Go is not installed.
-To install go on this machine,
-run as administrator the install-go.ps1 script provided in this repo.
+if (-not (Test-Path Env:\GOROOT)) {
+	Write-Warning @"
+Go is not installed on this machine.
+I will proceed to a local installation in the current directory.
 "@
-	exit 1
+    powershell.exe -ExecutionPolicy Unrestricted .\install-go.ps1 -version 1.11.1
+    $env:GOROOT = "$directory\go1.11.1"
 }
 
-$directory = Get-Location
-if ("$directory" -ne "$env:GOPATH\src\gomoku") {
-    if (-not (Test-Path ${Env:GOPATH})) {
+if ("$directory" -ne "${env:GOPATH}\src\gomoku") {
+    if (-not (Test-Path  Env:\GOPATH)) {
         mkdir "$directory\go" -Force
         $env:GOPATH = "$directory\go"
     }
@@ -22,5 +22,5 @@ if ("$directory" -ne "$env:GOPATH\src\gomoku") {
     Copy-Item .\pepito\*.go "$env:GOPATH\src\gomoku\pepito"
 }
 
-go build gomoku/pepito
+& "${env:GOROOT}\bin\go.exe" "build" "gomoku/pepito"
 Move-Item .\pepito.exe "pbrain-PARIS-Witrand.Gaspard.exe" -Force

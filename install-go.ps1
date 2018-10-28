@@ -1,7 +1,7 @@
 # Installs golang on Windows.
 #
 # # Run script:
-# .\install-go.ps1 -version 1.5.3 
+# .\install-go.ps1 -version 1.5.3
 #
 # # Download and run script:
 # $env:GOVERSION = '1.5.3'
@@ -51,7 +51,7 @@ $downloadDir = $env:TEMP
 $packageName = 'golang'
 $url32 = 'https://storage.googleapis.com/golang/go' + $version + '.windows-386.zip'
 $url64 = 'https://storage.googleapis.com/golang/go' + $version + '.windows-amd64.zip'
-$goroot = "C:\go$version"
+$goroot = ".\go$version"
 
 # Determine type of system
 if ($ENV:PROCESSOR_ARCHITECTURE -eq "AMD64") {
@@ -80,8 +80,10 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::ExtractToDirectory("$zip", $downloadDir)
 mv "$downloadDir\go" $goroot
 
-echo "Setting GOROOT and PATH for Machine"
-[System.Environment]::SetEnvironmentVariable("GOROOT", "$goroot", "Machine")
-$p = [System.Environment]::GetEnvironmentVariable("PATH", "Machine")
-$p = "$goroot\bin;$p"
-[System.Environment]::SetEnvironmentVariable("PATH", "$p", "Machine")
+
+Write-Warning "NOT Setting GOROOT and PATH for Machine"
+# echo "Setting GOROOT and PATH for Machine"
+# [System.Environment]::SetEnvironmentVariable("GOROOT", "$goroot", "Machine")
+# $p = [System.Environment]::GetEnvironmentVariable("PATH", "Machine")
+# $p = "$goroot\bin;$p"
+# [System.Environment]::SetEnvironmentVariable("PATH", "$p", "Machine")

@@ -46,6 +46,7 @@ func messageProcessorBoard(gmk *Gomoku, msg []string) {
 	err := gmk.Board.Init(gmk.Board.Size)
 	if err != nil {
 		fmt.Println("ERROR " + err.Error())
+		gmk.Live = false
 		return
 	}
 	gmk.scanner.Scan()
@@ -73,11 +74,17 @@ func messageProcessorAbout(gmk *Gomoku, msg []string) {
 }
 
 func messageProcessorEnd(gmk *Gomoku, msg []string) {
-	// gmk.Live = false
+	gmk.Live = false
 }
 
 func messageProcessorRestart(gmk *Gomoku, msg []string) {
-	gmk.Live = true
 	gmk.Turn = false
 	gmk.Begin = false
+	err := gmk.Board.Init(gmk.Board.Size)
+	if err != nil {
+		fmt.Println("ERROR " + err.Error())
+		gmk.Live = false
+	} else {
+		fmt.Println("OK")
+	}
 }
