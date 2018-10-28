@@ -1,4 +1,5 @@
 {
+	"editor.tabSize": 8,
 	"files.exclude": {
 		"**/.git": true,
 		"**/.svn": true,

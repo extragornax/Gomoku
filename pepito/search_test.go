@@ -194,3 +194,55 @@ func TestSearchVerticalZero(t *testing.T) {
 		t.Error("error coord hor")
 	}
 }
+
+func TestSearchDiagDownBlockedAfter(t *testing.T) {
+	var board gomoku.Board
+	var coord searchResult
+	err := board.Init(10)
+	if err != nil {
+		t.Error("error was supposed to be nil")
+	}
+
+	// board.Cells[0][1] = gomoku.BoardCellFoe
+	board.Cells[1][2] = gomoku.BoardCellOwn
+	board.Cells[2][3] = gomoku.BoardCellOwn
+	board.Cells[3][4] = gomoku.BoardCellOwn
+	board.Cells[4][5] = gomoku.BoardCellFoe
+	// board.Cells[3][1] = gomoku.BoardCellOwn
+	// board.Cells[4][2] = gomoku.BoardCellOwn
+	// board.Cells[5][3] = gomoku.BoardCellOwn
+
+	coord = searchDiagonalDown(board, gomoku.BoardCellOwn)
+	if coord.size != 3 || coord.x != 2 || coord.y != 1 {
+		t.Error("error coord hor")
+	}
+	if !coord.blockedAfter || coord.blockedBefore {
+		t.Error("bad blockade")
+	}
+}
+
+func TestSearchDiagDownBlockedBefore(t *testing.T) {
+	var board gomoku.Board
+	var coord searchResult
+	err := board.Init(10)
+	if err != nil {
+		t.Error("error was supposed to be nil")
+	}
+
+	board.Cells[0][1] = gomoku.BoardCellFoe
+	board.Cells[1][2] = gomoku.BoardCellOwn
+	board.Cells[2][3] = gomoku.BoardCellOwn
+	board.Cells[3][4] = gomoku.BoardCellOwn
+	// board.Cells[4][5] = gomoku.BoardCellFoe
+	// board.Cells[3][1] = gomoku.BoardCellOwn
+	// board.Cells[4][2] = gomoku.BoardCellOwn
+	// board.Cells[5][3] = gomoku.BoardCellOwn
+
+	coord = searchDiagonalDown(board, gomoku.BoardCellOwn)
+	if coord.size != 3 || coord.x != 2 || coord.y != 1 {
+		t.Error("error coord hor")
+	}
+	if coord.blockedAfter || !coord.blockedBefore {
+		t.Error("bad blockade")
+	}
+}
