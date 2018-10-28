@@ -18,3 +18,4 @@ func main() {
 		game.Play(trial.x, trial.y)
 		game.Run()
 	}
+}
