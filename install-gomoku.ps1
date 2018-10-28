@@ -9,7 +9,7 @@ I will proceed to a local installation in the current directory.
     $env:GOROOT = "$directory\go1.11.1"
 }
 
-if ("$directory" -ne "$env:GOPATH\src\gomoku") {
+if ("$directory" -ne "${env:GOPATH}\src\gomoku") {
     if (-not (Test-Path  Env:\GOPATH)) {
         mkdir "$directory\go" -Force
         $env:GOPATH = "$directory\go"
