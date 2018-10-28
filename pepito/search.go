@@ -23,7 +23,7 @@ type searchResult struct {
 
 func searchBlockedHorizontal(brd gomoku.Board, x uint, y uint, size uint) (before bool, after bool) {
 	before = x == 0 || brd.Cells[y][x-1] != uint8(0)
-	after = x+size+1 == brd.Size || brd.Cells[y][x+size] != uint8(0)
+	after = x+size >= brd.Size || brd.Cells[y][x+size] != uint8(0)
 	return
 	// return !(x == 0 || brd.Cells[y][x-1] != 0) ||
 	// 	(x+size+1 == brd.Size || brd.Cells[y][x+size+1] != 0)
@@ -31,7 +31,7 @@ func searchBlockedHorizontal(brd gomoku.Board, x uint, y uint, size uint) (befor
 
 func searchBlockedVertical(brd gomoku.Board, x uint, y uint, size uint) (before bool, after bool) {
 	before = y == 0 || brd.Cells[y-1][x] != 0
-	after = y+size == brd.Size || brd.Cells[y+size][x] != 0
+	after = y+size >= brd.Size || brd.Cells[y+size][x] != 0
 	return
 }
 
@@ -45,7 +45,7 @@ func searchHorizontal(brd gomoku.Board, target uint8) searchResult {
 	for y := uint(0); y < brd.Size; y++ {
 		for x := uint(0); x < brd.Size; x++ {
 			size := uint(0)
-			for brd.Cells[y][x] == target {
+			for x < brd.Size && brd.Cells[y][x] == target {
 				size++
 				x++
 			}
@@ -74,7 +74,7 @@ func searchVertical(brd gomoku.Board, player uint8) searchResult {
 
 	for x := uint(0); x < brd.Size; x++ {
 		for y := uint(0); y < brd.Size; y++ {
-			for brd.Cells[y][x] == player {
+			for y < brd.Size && brd.Cells[y][x] == player {
 				size++
 				y++
 			}
@@ -94,16 +94,40 @@ func searchVertical(brd gomoku.Board, player uint8) searchResult {
 	return res
 }
 
-func seachDiagonalUp(brd gomoku.Board, target uint8) searchResult {
-	var res searchResult
-	res.resultType = searchDiagUpResult
-
-	return res
+func searchBlockedDiagonalDown(brd gomoku.Board, x uint, y uint, size uint) (before bool, after bool) {
+	before = y == 0 || x == 0 || brd.Cells[y-1][x-1] != 0
+	after = y+size >= brd.Size || x+size >= brd.Size || brd.Cells[y+size][x+size] != 0
+	return
 }
 
-func seachDiagonalDown(brd gomoku.Board, target uint8) searchResult {
+func searchDiagonalDown(brd gomoku.Board, player uint8) searchResult {
 	var res searchResult
 	res.resultType = searchDiagDownResult
+	res.size = 0
+	res.x = 0
+	res.y = 0
+	size := uint(0)
 
+	for x := uint(0); x < brd.Size; x++ {
+		for y := uint(0); y < brd.Size; y++ {
+			tmp := y
+			for x < brd.Size && tmp < brd.Size && brd.Cells[tmp][x] == player {
+				size++
+				x++
+				tmp++
+			}
+			if size > res.size {
+				before, after := searchBlockedDiagonalDown(brd, x-size, tmp-size, size)
+				if !(before && after) {
+					res.size = size
+					res.y = tmp - size
+					res.x = x - size
+					res.blockedBefore = before
+					res.blockedAfter = after
+				}
+			}
+			size = 0
+		}
+	}
 	return res
 }

@@ -24,19 +24,21 @@ func decisionCompleteOrBock(res searchResult) (trial uvector) {
 		}
 	} else if res.resultType == searchDiagDownResult {
 		if !res.blockedBefore {
+			fmt.Println("DEBUG NOT BLOCKED BEFORE")
 			trial.x = res.x - 1
 			trial.y = res.y - 1
 		} else {
+			fmt.Println("DEBUG NOT BLOCKED AFTER")
 			trial.x = res.x + res.size
 			trial.y = res.y + res.size
 		}
 	} else if res.resultType == searchDiagUpResult {
 		if !res.blockedBefore {
 			trial.x = res.x - 1
-			trial.y = res.y - 1
+			trial.y = res.y + 1
 		} else {
 			trial.x = res.x + res.size
-			trial.y = res.y + res.size
+			trial.y = res.y - res.size
 		}
 	}
 	return
@@ -48,12 +50,12 @@ func decisionTake(game *gomoku.Gomoku) uvector {
 	if tmp.size > resfoe.size {
 		resfoe = tmp
 	}
-	tmp = seachDiagonalUp(game.Board, gomoku.BoardCellFoe)
+	tmp = searchDigonalUp(game.Board, gomoku.BoardCellFoe)
 	fmt.Printf("DEBUG diagup %d\n", tmp.size)
 	if tmp.size > resfoe.size {
 		resfoe = tmp
 	}
-	tmp = seachDiagonalDown(game.Board, gomoku.BoardCellFoe)
+	tmp = searchDiagonalDown(game.Board, gomoku.BoardCellFoe)
 	fmt.Printf("DEBUG diagdown %d\n", tmp.size)
 	if tmp.size > resfoe.size {
 		resfoe = tmp
