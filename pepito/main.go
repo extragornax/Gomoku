@@ -61,7 +61,7 @@ func find_diag_up(game gomoku.Gomoku, who uint8) searchResult {
 	if infos.size > 0 {
 		check_empty_before_after_up(game, who, &infos)
 	}
-	fmt.Printf("DIAGONAL UP: %d %d %d %d\n", infos.x, infos.y, infos.size, infos.blockedBefore)
+	// fmt.Printf("DIAGONAL UP: %d %d %d %d\n", infos.x, infos.y, infos.size, infos.blockedBefore)
 	return infos
 }
 
@@ -90,7 +90,7 @@ func main() {
 			fmt.Printf("\n")
 		}
 		fmt.Printf("==========================\n")
-		searchDigonalDown(game, gomoku.BoardCellFoe)
+		searchDigonalDown(game.Board, gomoku.BoardCellFoe)
 		game.Run()
 	}
 }

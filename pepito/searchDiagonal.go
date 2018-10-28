@@ -78,6 +78,8 @@ func checkDiagonalUp(game gomoku.Board, x uint, y uint, infos *searchResult, who
 		}
 		if game.Cells[i][j] == who {
 			count++
+		} else {
+			break
 		}
 		j++
 		maxSize++
@@ -96,20 +98,25 @@ func checkDiagonalUp(game gomoku.Board, x uint, y uint, infos *searchResult, who
 }
 
 func checkDiagonalUpEmpty(game gomoku.Board, who uint8, infos *searchResult, x uint, y uint) {
-	if x+1 < game.Size && y-1 < game.Size &&
-		game.Cells[y-1][x+1] != gomoku.BoardCellEmpty {
-		infos.blockedAfter = true
-	} else {
-		infos.blockedAfter = false
+	if (x+(infos.size+1)) < game.Size && (y-(infos.size+1)) >= 0 {
+		if game.Cells[y-(infos.size+1)][x+(infos.size+1)] != gomoku.BoardCellEmpty &&
+			game.Cells[y-(infos.size+1)][x+(infos.size+1)] != who {
+			infos.blockedAfter = true
+		} else {
+			infos.blockedAfter = false
+		}
 	}
-	fmt.Printf("x = %d | y = %d\n", x+1, y-1)
-	fmt.Printf("%d\n", game.Cells[y+1][x-1])
-	fmt.Printf("x = %d | y = %d\n", x-1, y+1)
-	if x-1 >= 0 && y+1 >= 0 &&
-		game.Cells[y+1][x-1] != gomoku.BoardCellEmpty {
+	if x == 0 {
 		infos.blockedBefore = true
-	} else {
-		infos.blockedBefore = false
+	} else if (x-1) >= 0 && (y+1) < game.Size {
+		if game.Cells[y+1][x-1] != gomoku.BoardCellEmpty && game.Cells[y+1][x-1] != who {
+			infos.blockedBefore = true
+		} else {
+			infos.blockedBefore = false
+		}
+	}
+	if infos.blockedBefore == true || infos.blockedAfter == true {
+		infos.size = 0
 	}
 }
 

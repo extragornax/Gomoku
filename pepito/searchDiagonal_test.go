@@ -59,7 +59,7 @@ func TestSearchDiagonalDownFourBlocked(t *testing.T) {
 	board.Cells[1][1] = gomoku.BoardCellFoe
 
 	coord = searchDigonalDown(board, gomoku.BoardCellFoe)
-	if coord.size != 0 {
+	if coord.size != 0 || coord.blockedAfter != true || coord.blockedBefore != true {
 		t.Error("error coord hor")
 	}
 }
@@ -115,33 +115,31 @@ func TestSearchDiagonalUpFour(t *testing.T) {
 	if err != nil {
 		t.Error("error was supposed to be nil")
 	}
-	board.Cells[5][5] = gomoku.BoardCellOwn
-	board.Cells[4][4] = gomoku.BoardCellFoe
-	board.Cells[3][3] = gomoku.BoardCellFoe
-	board.Cells[2][2] = gomoku.BoardCellFoe
-	board.Cells[1][1] = gomoku.BoardCellFoe
+	board.Cells[6][0] = gomoku.BoardCellOwn
+	board.Cells[5][1] = gomoku.BoardCellOwn
+	board.Cells[4][2] = gomoku.BoardCellOwn
+	board.Cells[3][3] = gomoku.BoardCellOwn
 
-	coord = searchDigonalUp(board, gomoku.BoardCellFoe)
-	if coord.size != 4 || coord.x != 1 || coord.y != 1 {
+	coord = searchDigonalUp(board, gomoku.BoardCellOwn)
+	if coord.size != 4 || coord.x != 0 || coord.y != 6 {
 		t.Error("error coord hor")
 	}
 }
 
-func TestSearchDiagonalUpFourBlocked(t *testing.T) {
+func TestSearchDiagonalUpThreeBlocked(t *testing.T) {
 	var board gomoku.Board
 	var coord searchResult
 	err := board.Init(10)
 	if err != nil {
 		t.Error("error was supposed to be nil")
 	}
-	board.Cells[0][0] = gomoku.BoardCellOwn
-	board.Cells[5][5] = gomoku.BoardCellOwn
-	board.Cells[4][4] = gomoku.BoardCellFoe
-	board.Cells[3][3] = gomoku.BoardCellFoe
-	board.Cells[2][2] = gomoku.BoardCellFoe
-	board.Cells[1][1] = gomoku.BoardCellFoe
+	board.Cells[6][0] = gomoku.BoardCellFoe
+	board.Cells[5][1] = gomoku.BoardCellOwn
+	board.Cells[4][2] = gomoku.BoardCellOwn
+	board.Cells[3][3] = gomoku.BoardCellOwn
+	board.Cells[2][4] = gomoku.BoardCellFoe
 
-	coord = searchDigonalUp(board, gomoku.BoardCellFoe)
+	coord = searchDigonalUp(board, gomoku.BoardCellOwn)
 	if coord.size != 0 {
 		t.Error("error coord hor")
 	}
@@ -154,16 +152,15 @@ func TestSearchDiagonalUpFourBlockedOneFree(t *testing.T) {
 	if err != nil {
 		t.Error("error was supposed to be nil")
 	}
-	board.Cells[0][0] = gomoku.BoardCellOwn
-	board.Cells[5][5] = gomoku.BoardCellOwn
-	board.Cells[4][4] = gomoku.BoardCellFoe
-	board.Cells[3][3] = gomoku.BoardCellFoe
-	board.Cells[2][2] = gomoku.BoardCellFoe
-	board.Cells[1][1] = gomoku.BoardCellFoe
-	board.Cells[8][8] = gomoku.BoardCellFoe
+	board.Cells[6][0] = gomoku.BoardCellFoe
+	board.Cells[5][1] = gomoku.BoardCellOwn
+	board.Cells[4][2] = gomoku.BoardCellOwn
+	board.Cells[3][3] = gomoku.BoardCellOwn
+	board.Cells[2][4] = gomoku.BoardCellFoe
+	board.Cells[8][8] = gomoku.BoardCellOwn
 
-	coord = searchDigonalUp(board, gomoku.BoardCellFoe)
-	if coord.size != 1 || coord.x != 8 || coord.y != 8 {
+	coord = searchDigonalUp(board, gomoku.BoardCellOwn)
+	if coord.size != 1 || coord.x != 8 || coord.y != 8 || coord.blockedBefore != false || coord.blockedAfter != false {
 		t.Error("error coord hor")
 	}
 }
